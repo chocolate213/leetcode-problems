@@ -218,43 +218,5 @@ public class MainTest {
                     '}';
         }
     }
-
-    /**
-     * TODO：为什么 Junit 框架会直接退出主线程？
-     */
-    @Test
-    public void test() {
-        Thread currentThread = Thread.currentThread();
-
-        for (int i = 0; i < 10; i++) {
-            DominoRunner runner = new DominoRunner(currentThread);
-            Thread t = new Thread(runner, String.valueOf(i));
-            // 线程默认为 非 daemon 线程，即 JVM 会等待该线程退出后再退出
-            // t.setDaemon(true);
-            t.start();
-            currentThread = t;
-        }
-
-        System.out.println(Thread.currentThread().getName() + " terminate");
-    }
-
-    public static class DominoRunner implements Runnable {
-        private final Thread thread;
-
-        public DominoRunner(Thread thread) {
-            this.thread = thread;
-        }
-
-        @Override
-        public void run() {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println(Thread.currentThread().getName() + " terminate");
-        }
-    }
 }
 

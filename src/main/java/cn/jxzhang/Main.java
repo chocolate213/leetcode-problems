@@ -6,8 +6,10 @@ public class Main {
 
     /**
      * 按顺序打印线程
+     * Q: 为什么在 Junit 中此段代码不能按顺序打印线程名？
+     * A：com.intellij.rt.junit.JUnitStarter 在主线程执行完毕后会调用 {@code System.exit()} 退出虚拟机。
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Thread currentThread = Thread.currentThread();
 
         for (int i = 0; i < 10; i++) {
